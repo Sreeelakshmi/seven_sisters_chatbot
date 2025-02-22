@@ -15,7 +15,7 @@ def load_data():
 data = load_data()
 
 # OpenAI API Key (Set your key in Streamlit secrets)
-api_key = os.getenv("")
+api_key = os.getenv("OPENAI_API_KEY")
 
 def query_openai(prompt):
     response = openai.ChatCompletion.create(

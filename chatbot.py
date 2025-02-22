@@ -1,12 +1,11 @@
 import streamlit as st
 import pandas as pd
 import openai
-import os
 
 # Load CSV file
 @st.cache_data
 def load_data():
-    file_path = "Seven_Sisters_Travel_Packages_Enhanced.csv"
+    file_path = "/mnt/data/Seven_Sisters_Travel_Packages_Enhanced.csv"
     try:
         return pd.read_csv(file_path)
     except Exception as e:
@@ -15,15 +14,15 @@ def load_data():
 data = load_data()
 
 # OpenAI API Key (Set your key in Streamlit secrets)
-api_key = os.getenv("OPENAI_API_KEY")
+client = openai.OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
 def query_openai(prompt):
-    response = openai.ChatCompletion.create(
+    response = client.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[{"role": "system", "content": "You are an expert travel guide on the Seven Sisters of India."},
                   {"role": "user", "content": prompt}]
     )
-    return response["choices"][0]["message"]["content"].strip()
+    return response.choices[0].message.content.strip()
 
 st.title("Seven Sisters Travel Chatbot")
 st.write("Ask me anything about Northeast India or details from your uploaded dataset!")
@@ -40,3 +39,4 @@ if user_input:
     else:
         response = query_openai(user_input)
         st.write(response)
+

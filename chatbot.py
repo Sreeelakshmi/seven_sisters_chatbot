@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import openai
+import os
 
 # Load CSV file
 @st.cache_data

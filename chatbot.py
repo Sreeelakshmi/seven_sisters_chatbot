@@ -14,7 +14,7 @@ def load_data():
 data = load_data()
 
 # OpenAI API Key (Set your key in Streamlit secrets)
-openai.api_key = st.secrets["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"]
+openai.api_key = st.secrets["openai"]["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"]
 
 def query_openai(prompt):
     response = openai.ChatCompletion.create(

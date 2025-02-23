@@ -13,8 +13,12 @@ def load_data():
 
 data = load_data()
 
-# OpenAI API Key (Set your key in Streamlit secrets)
-client = openai.OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
+# Get API Key from Streamlit Secrets
+api_key = st.secrets["OPENAI_API_KEY"]
+
+# Initialize OpenAI Client
+client = openai.OpenAI(api_key=api_key)
+
 
 def query_openai(prompt):
     response = client.chat.completions.create(
